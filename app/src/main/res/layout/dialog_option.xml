@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/nearby"
+        style="@style/optionItemTvStyle"
+        android:text="Nearby" />
+
+    <TextView
+        android:id="@+id/streetview"
+        style="@style/optionItemTvStyle"
+        android:text="Streetview" />
+
+    <TextView
+        android:id="@+id/inter"
+        style="@style/optionItemTvStyle"
+        android:text="Interactive" />
+
+    <TextView
+        android:id="@+id/normal"
+        style="@style/optionItemTvStyle"
+        android:text="Normal Map" />
+
+    <TextView
+        android:id="@+id/hybird"
+        style="@style/optionItemTvStyle"
+        android:text="Hybird Map" />
+
+    <TextView
+        android:id="@+id/sat"
+        style="@style/optionItemTvStyle"
+        android:text="Sat Map" />
+
+    <TextView
+        android:id="@+id/terrain"
+        style="@style/optionItemTvStyle"
+        android:text="Terrain Map" />
+
+    <TextView
+        android:id="@+id/search"
+        style="@style/optionItemTvStyle"
+        android:text="Search" />
+</LinearLayout>
