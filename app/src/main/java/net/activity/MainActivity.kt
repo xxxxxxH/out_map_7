@@ -108,6 +108,7 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMyLocationButtonClickListe
                 map?.let {
                     initMapSetting(it)
                     locationBtnClick(it)
+                    it.setOnMyLocationButtonClickListener(this)
                 }
             }
             "nearby" -> {
