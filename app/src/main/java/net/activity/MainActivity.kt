@@ -1,17 +1,25 @@
-package net.basicmodel
+package net.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_main.*
+import net.event.MessageEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.xutils.x
+import utils.DialogUtils
+import utils.MapUtils
 
 @SuppressLint("MissingPermission")
 class MainActivity : AppCompatActivity(), GoogleMap.OnMyLocationButtonClickListener {
@@ -19,6 +27,8 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMyLocationButtonClickListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        x.Ext.init(application)
+        x.Ext.setDebug(BuildConfig.DEBUG)
         EventBus.getDefault().register(this)
         mapview.onCreate(savedInstanceState)
         mapview.onResume()
@@ -101,13 +111,13 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMyLocationButtonClickListe
                 }
             }
             "nearby" -> {
-
+                startActivity(Intent(this,NearbyActivity::class.java))
             }
             "streetview" -> {
-
+                startActivity(Intent(this,StreetviewActivity::class.java))
             }
             "inter" -> {
-
+                startActivity(Intent(this,InteractiveActivity::class.java))
             }
             "normal" -> {
                 setMapType("normal")
@@ -122,7 +132,11 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMyLocationButtonClickListe
                 setMapType("terrain")
             }
             "search" -> {
-
+                val builder = PlacePicker.IntentBuilder()
+                startActivityForResult(
+                    builder.build(this),
+                    1
+                )
             }
         }
     }
@@ -132,5 +146,28 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMyLocationButtonClickListe
             locationBtnClick(it)
         }
         return false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            1 -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        val place = PlacePicker.getPlace(data, this)
+                        val position = CameraPosition.Builder().target(place.latLng)
+                            .zoom(15f)
+                            .bearing(0f)
+                            .tilt(25f)
+                            .build()
+                        map?.animateCamera(
+                            CameraUpdateFactory.newCameraPosition(position),
+                            1000,
+                            null
+                        )
+                    }
+                }
+            }
+        }
     }
 }

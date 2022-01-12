@@ -1,8 +1,10 @@
-package net.basicmodel
+package utils
 
 import android.content.Context
 import android.view.LayoutInflater
 import com.yarolegovich.lovelydialog.LovelyCustomDialog
+import net.event.MessageEvent
+import net.activity.R
 import org.greenrobot.eventbus.EventBus
 
 

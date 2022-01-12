@@ -1,4 +1,4 @@
-package net.basicmodel
+package utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,12 +7,13 @@ import android.location.LocationManager
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import net.event.MessageEvent
 import org.greenrobot.eventbus.EventBus
 @SuppressLint("MissingPermission")
 object MapUtils {
     fun mapAsync(mapView: MapView){
         mapView.getMapAsync {
-            EventBus.getDefault().post(MessageEvent("map",it))
+            EventBus.getDefault().post(MessageEvent("map", it))
         }
     }
 

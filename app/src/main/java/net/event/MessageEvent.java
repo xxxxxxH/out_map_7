@@ -1,4 +1,4 @@
-package net.basicmodel;
+package net.event;
 
 public class MessageEvent {
 

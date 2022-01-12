@@ -1,4 +1,4 @@
-package net.basicmodel
+package net.activity
 
 import org.junit.Test
 
